@@ -1,0 +1,20 @@
+{
+  "name": "rgdevme/wp-plugin-framework",
+  "description": "A Wordpress plugin building framework, made by a JS dev.",
+  "license": "MIT",
+  "authors": [
+    {
+      "homepage": "https://github.com/rgdevme/",
+      "name": "Rafael González"
+    }
+  ],
+  "homepage": "https://github.com/rgdevme/",
+  "require": {
+    "php": ">=8.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "WordpressPluginFramework\\": "src/"
+    }
+  }
+}
