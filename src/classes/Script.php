@@ -14,7 +14,7 @@ class Script extends Includable
    *    v:string,
    *    condition:array,
    *    deps:array,
-   *    admin?:boolean
+   *    admin?:boolean,
    *    localized_object_name?:string,
    * }) $props */
   public function __construct($props)

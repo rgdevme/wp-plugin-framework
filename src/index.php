@@ -21,10 +21,10 @@ class Plugin
   /** 
    * @param (array{
    *    menu_title:string,
-   *    domain:string
+   *    domain:string,
    *    plugin_path:string,
    *    root_file:string,
-   *    slug:string
+   *    slug:string,
    *    views: ViewData[],
    *    db?: DBTable,
    *    actions?: ActionData[],
