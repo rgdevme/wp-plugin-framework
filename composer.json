@@ -2,6 +2,7 @@
   "name": "rgdevme/wp-plugin-framework",
   "description": "A Wordpress plugin building framework, made by a JS dev.",
   "license": "MIT",
+  "version": "1.0.0",
   "authors": [
     {
       "homepage": "https://github.com/rgdevme/",
@@ -10,7 +11,7 @@
   ],
   "homepage": "https://github.com/rgdevme/",
   "require": {
-    "php": ">=8.2"
+    "php": ">=7"
   },
   "autoload": {
     "psr-4": {
