@@ -11,16 +11,18 @@ class Shortcode implements Base
 
   /** @param (array{
    *    attributes:array<string>,
-   *    callable:string,
+   *    callable:callable|mixed,
    *    inject?:array<Stylesheet|Script>,
    *    name:string,
    * }) $props */
   public function __construct($props)
   {
     $this->name = $props['name'];
-    $this->callable = $props['callable'];
     if (isset($props['attributes'])) $this->attributes = $props['attributes'];
     if (isset($props['inject'])) $this->inject = $props['inject'];
+
+    $callable_name = get_callable_name($props['callable']);
+    if ($callable_name) $this->callable = $callable_name;
   }
 
   function init()

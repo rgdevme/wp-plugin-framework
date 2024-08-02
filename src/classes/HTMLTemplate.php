@@ -7,13 +7,13 @@ class HTMLTemplate
   public string $filepath = '';
   private string $variables_callable;
   /** @param (array{
-   *    variables_callable:string,
+   *    variables_callable:callable|mixed,
    *    filepath:string,
    * }) $props */
   function __construct($props)
   {
     $this->filepath = $props['filepath'];
-    $this->variables_callable = get_template_variables_callable(
+    $this->variables_callable = get_callable_name(
       $props['variables_callable'],
       'default_view_data_callable'
     );

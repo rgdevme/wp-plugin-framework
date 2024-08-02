@@ -18,7 +18,7 @@ class Includable implements Base
    *    domain:string,
    *    path:string,
    *    v:string,
-   *    condition:array,
+   *    condition:callable|mixed,
    *    deps:array,
    *    admin?:boolean
    * }) $props */
@@ -38,7 +38,7 @@ class Includable implements Base
 
   function set_condition(array $callable)
   {
-    $callable_name =  get_template_variables_callable($callable);
+    $callable_name =  get_callable_name($callable);
     if ($callable_name) $this->condition = $callable_name;
   }
 

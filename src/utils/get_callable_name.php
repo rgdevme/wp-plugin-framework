@@ -6,7 +6,7 @@ use function WordpressPluginFramework\default_view_data_callable;
  * @param callable|mixed $value
  * @param string|null $fallback
  */
-function get_template_variables_callable(
+function get_callable_name(
   mixed $value,
   string $fallback = null
 ) {
