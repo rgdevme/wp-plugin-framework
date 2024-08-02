@@ -1,7 +1,7 @@
 <?php
 namespace WordpressPluginFramework;
 
-function DefualtViewDataCallable()
+function default_view_data_callable()
 {
   return [];
 }
