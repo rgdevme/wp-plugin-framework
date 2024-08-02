@@ -5,22 +5,23 @@ namespace WordpressPluginFramework;
 class HTMLTemplate
 {
   public string $filepath = '';
-  private string $callable;
+  private string $variables_callable;
   /** @param (array{
-   *    callable:string,
+   *    variables_callable:string,
    *    filepath:string,
    * }) $props */
   function __construct($props)
   {
     $this->filepath = $props['filepath'];
-    $this->callable = !isset($props['callable'])
-      ? 'default_view_data_callable'
-      : $props['callable'];
+    $this->variables_callable = get_template_variables_callable(
+      $props['variables_callable'],
+      'default_view_data_callable'
+    );
   }
 
   function load()
   {
-    $callable = $this->callable;
+    $callable = $this->variables_callable;
     echo include_with_variables($this->filepath, $callable());
   }
 }

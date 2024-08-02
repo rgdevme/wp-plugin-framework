@@ -26,25 +26,6 @@ class Script extends Includable
       : $this->name;
   }
 
-  function set_condition(array $callable)
-  {
-    if (empty($callable)) return;
-    $callable_name =  '';
-    $is_valid = is_callable($callable, true, $callable_name);
-    if ($is_valid) $this->condition = $callable_name;
-  }
-  function init()
-  {
-    add_action(
-      $this->action,
-      function () {
-        $passed = $this->call_condition();
-        if (!$passed) return;
-        wp_enqueue_script($this->name, $this->path, $this->deps, $this->v, true);
-      }
-    );
-  }
-
   function localize(array $globals = [])
   {
     // Ensure localization only happens once

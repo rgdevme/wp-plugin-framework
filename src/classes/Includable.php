@@ -30,18 +30,16 @@ class Includable implements Base
     $this->action = $this->is_admin ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts';
 
     if (isset($props['deps'])) $this->deps = $props['deps'];
-    if (isset($props['condition'])) $this->set_condition($props['condition']);
     if (isset($props['v']) && !empty($props['v'])) {
       $this->v = $props['v'];
     } else $this->v = rndv();
+    $this->set_condition($props['condition']);
   }
 
   function set_condition(array $callable)
   {
-    if (empty($callable)) return;
-    $callable_name =  '';
-    $is_valid = is_callable($callable, true, $callable_name);
-    if ($is_valid) $this->condition = $callable_name;
+    $callable_name =  get_template_variables_callable($callable);
+    if ($callable_name) $this->condition = $callable_name;
   }
 
   function call_condition()
