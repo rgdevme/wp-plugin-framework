@@ -5,10 +5,10 @@ namespace WordpressPluginFramework;
 /**
  * Gets the requested view name and file path, from the $this->views list,
  * based on the "page" parameter of the request.
- * @param ViewData[] $views The views object to filter through.
+ * @param SubmenuPage[] $views The views object to filter through.
  * @param string $fallback The default value to fall back to. 
  */
-function get_view_data(array $views, string $fallback): ViewData
+function get_view_data(array $views, string $fallback): SubmenuPage
 {
   $param = isset($_GET['page']) ? $_GET['page'] : $fallback;
   $subpaths = explode('_', $param);
