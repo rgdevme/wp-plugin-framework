@@ -1,6 +1,9 @@
 <?php
 
-namespace WordpressPluginFramework;
+namespace WordpressPluginFramework\Classes;
+
+use WordpressPluginFramework\Interfaces\Base;
+use WordpressPluginFramework\Utils;
 
 class Shortcode implements Base
 {
@@ -17,11 +20,12 @@ class Shortcode implements Base
    * }) $props */
   public function __construct($props)
   {
+    $u = new Utils();
     $this->name = $props['name'];
     if (isset($props['attributes'])) $this->attributes = $props['attributes'];
     if (isset($props['inject'])) $this->inject = $props['inject'];
 
-    $callable_name = get_callable_name($props['callable']);
+    $callable_name = $u->get_callable_name($props['callable']);
     if ($callable_name) $this->callable = $callable_name;
   }
 

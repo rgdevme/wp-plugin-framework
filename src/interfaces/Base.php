@@ -1,6 +1,6 @@
 <?php
 
-namespace WordpressPluginFramework;
+namespace WordpressPluginFramework\Interfaces;
 
 interface Base
 {

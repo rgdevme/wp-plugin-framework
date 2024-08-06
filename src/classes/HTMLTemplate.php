@@ -1,6 +1,8 @@
 <?php
 
-namespace WordpressPluginFramework;
+namespace WordpressPluginFramework\Classes;
+
+use WordpressPluginFramework\Utils;
 
 class HTMLTemplate
 {
@@ -12,16 +14,18 @@ class HTMLTemplate
    * }) $props */
   function __construct($props)
   {
+    $u = new Utils();
     $this->filepath = $props['filepath'];
-    $this->variables_callable = get_callable_name(
-      $props['variables_callable'],
+    $this->variables_callable = $u->get_callable_name(
+      isset($props['variables_callable']) ? $props['variables_callable'] : null,
       'default_view_data_callable'
     );
   }
 
   function load()
   {
+    $u = new Utils();
     $callable = $this->variables_callable;
-    echo include_with_variables($this->filepath, $callable());
+    echo $u->include_with_variables($this->filepath, $callable());
   }
 }

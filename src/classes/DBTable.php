@@ -1,6 +1,8 @@
 <?php
 
-namespace WordpressPluginFramework;
+namespace WordpressPluginFramework\Classes;
+
+use WordpressPluginFramework\Interfaces\Base;
 
 class DBColumn
 {

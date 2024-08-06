@@ -2,6 +2,12 @@
 
 namespace WordpressPluginFramework;
 
+use WordpressPluginFramework\Classes\ActionData;
+use WordpressPluginFramework\Classes\DBTable;
+use WordpressPluginFramework\Classes\MenuPage;
+use WordpressPluginFramework\Classes\Shortcode;
+use WordpressPluginFramework\Classes\SubmenuPage;
+
 class Plugin
 {
   public string $plugin_path;

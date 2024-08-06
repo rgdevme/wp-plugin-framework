@@ -15,7 +15,10 @@
   },
   "autoload": {
     "psr-4": {
-      "WordpressPluginFramework\\": "src/"
-    }
+      "WordpressPluginFramework\\": "wp-plugin-framework/src/"
+    },
+    "files": [
+      "wp-plugin-framework/src/Utils.php"
+    ]
   }
 }

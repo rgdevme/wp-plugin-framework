@@ -1,6 +1,9 @@
 <?php
 
-namespace WordpressPluginFramework;
+namespace WordpressPluginFramework\Classes;
+
+use WordpressPluginFramework\Interfaces\Base;
+use WordpressPluginFramework\Utils;
 
 class MenuPage implements Base
 {
@@ -70,12 +73,13 @@ class MenuPage implements Base
 
   function load_view()
   {
+    $u = new Utils();
     $classes = [$this->slug, $this->name];
     echo '<div class="' . join(' ', $classes) . '">';
     echo '<div class="container">';
     echo '<div class="inner">';
 
-    echo include_with_variables($this->filepath, $this->getData());
+    echo $u->include_with_variables($this->filepath, $this->getData());
 
     echo '</div>';
     echo '</div>';

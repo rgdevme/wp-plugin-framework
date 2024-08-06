@@ -1,6 +1,9 @@
 <?php
 
-namespace WordpressPluginFramework;
+namespace WordpressPluginFramework\Classes;
+
+use WordpressPluginFramework\Interfaces\Base;
+use WordpressPluginFramework\Utils;
 
 class Includable implements Base
 {
@@ -24,7 +27,8 @@ class Includable implements Base
    * }) $props */
   public function __construct($props)
   {
-    $this->name = name($props['path'], $props['domain']);
+    $u = new Utils();
+    $this->name = $u->name($props['path'], $props['domain']);
     $this->path = $props['path'];
     if (isset($props['admin'])) $this->is_admin = $props['admin'];
     $this->action = $this->is_admin ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts';
@@ -32,13 +36,14 @@ class Includable implements Base
     if (isset($props['deps'])) $this->deps = $props['deps'];
     if (isset($props['v']) && !empty($props['v'])) {
       $this->v = $props['v'];
-    } else $this->v = rndv();
-    $this->set_condition($props['condition']);
+    } else $this->v = $u->rndv();
+    if (isset($props['condition'])) $this->set_condition($props['condition']);
   }
 
   function set_condition(array $callable)
   {
-    $callable_name =  get_callable_name($callable);
+    $u = new Utils();
+    $callable_name =  $u->get_callable_name($callable);
     if ($callable_name) $this->condition = $callable_name;
   }
 
