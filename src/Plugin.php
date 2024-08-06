@@ -58,7 +58,7 @@ class Plugin
   public function init()
   {
     // Create new table on plugin resitration
-    if ($this->db === null) {
+    if (isset($this->db) && !is_null($this->db)) {
       $path = $this->plugin_path . $this->root_file;
       register_activation_hook($path, [$this->db, 'init']);
       register_deactivation_hook($path, [$this->db, 'kill']);
