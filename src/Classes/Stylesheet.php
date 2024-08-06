@@ -2,7 +2,7 @@
 
 namespace WordpressPluginFramework\Classes;
 
-class StyleSheet extends Includable
+class Stylesheet extends Includable
 {
   public bool $enqueued = false;
 
