@@ -2,7 +2,7 @@
   "name": "rgdevme/wp-plugin-framework",
   "description": "A Wordpress plugin building framework, made by a JS dev.",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "authors": [
     {
       "homepage": "https://github.com/rgdevme/",
@@ -17,5 +17,11 @@
     "psr-4": {
       "WordpressPluginFramework\\": "src/"
     }
+  },
+  "scripts": {
+    "release": "node ./release.js",
+    "patch": "@release -scope=patch",
+    "bump-minor": "@release -scope=minor",
+    "bump-major": "@release -scope=major"
   }
 }
