@@ -10,9 +10,12 @@ const scope = process.argv[2].split('=')[1]
 switch (scope) {
   case 'major':
     major += 1
+    minor = 0
+    patch = 0
     break
   case 'minor':
     minor += 1
+    patch = 0
     break
   case 'patch':
     patch += 1
