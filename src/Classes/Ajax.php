@@ -2,7 +2,7 @@
 
 namespace WordpressPluginFramework\Classes;
 
-class ActionData
+class Ajax
 {
   public string $name;
   private bool $public = false;
