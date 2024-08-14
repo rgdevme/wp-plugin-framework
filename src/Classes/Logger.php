@@ -1,5 +1,7 @@
 <?php
 
+namespace WordpressPluginFramework\Classes;
+
 class Logger
 {
   public string $path;
