@@ -6,22 +6,40 @@ use WordpressPluginFramework\Utils;
 
 class Action
 {
-  public string $hook;
+  /** @var string[] $hook */
+  public array $hooks = [];
   public string $callable;
+  public int $priority = 10;
+  public int $accepted_args = 1;
 
   /** 
    * @param (array{
-   *    hook:string,
+   *    hooks:string[],
    *    callable:callable|mixed,
+   *    priority: int,
+   *    accepted_args: int
    * }) $props */
   function __construct($props)
   {
-    $this->hook = $props['hook'];
+    $this->hooks = $props['hooks'];
     $this->callable = Utils::get_callable_name($props['callable']);
+    if (isset($props['priority'])) {
+      $this->priority = $props['priority'];
+    }
+    if (isset($props['accepted_args'])) {
+      $this->accepted_args = $props['accepted_args'];
+    }
   }
 
   function init()
   {
-    add_action($this->hook, $this->callable);
+    foreach ($this->hooks as $hook) {
+      add_action(
+        $hook,
+        $this->callable,
+        $this->priority,
+        $this->accepted_args
+      );
+    }
   }
 }
