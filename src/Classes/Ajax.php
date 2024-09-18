@@ -5,7 +5,7 @@ namespace WordpressPluginFramework\Classes;
 class Ajax
 {
   public string $name;
-  private bool $public = false;
+  public bool $public = false;
 
   /** 
    * @param (array{
@@ -15,7 +15,7 @@ class Ajax
   function __construct($props)
   {
     $this->name = $props['name'];
-    if (!isset($props['public'])) $this->public = $props['public'];
+    if (isset($props['public'])) $this->public = $props['public'];
   }
   function init()
   {
