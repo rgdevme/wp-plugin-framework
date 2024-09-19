@@ -9,12 +9,11 @@ class Script extends Includable
 
   /** 
    * @param (array{
-   *    domain:string,
-   *    path:string,
-   *    v:string,
-   *    condition:array,
-   *    deps:array,
-   *    admin?:boolean,
+   *    url:string,
+   *    condition:null|callable|mixed,
+   *    admin:?boolean,
+   *    deps:?array,
+   *    v:?string
    *    localized_object_name?:string,
    * }) $props */
   public function __construct($props)

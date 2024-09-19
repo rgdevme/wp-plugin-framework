@@ -15,7 +15,7 @@ class Stylesheet extends Includable
       function () {
         $passed = $this->call_condition();
         if (!$passed) return;
-        wp_enqueue_style($this->name, $this->path, $this->deps, $this->v, 'all');
+        wp_enqueue_style($this->name, $this->url, $this->deps, $this->v, 'all');
         $this->enqueued = true;
       }
     );

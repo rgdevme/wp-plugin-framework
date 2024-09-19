@@ -8,7 +8,7 @@ use WordpressPluginFramework\Utils;
 class Includable implements Base
 {
   public string $name;
-  public string $path;
+  public string $url;
   public string $condition;
   public string $v;
   public array $deps = [];
@@ -18,29 +18,33 @@ class Includable implements Base
 
   /** 
    * @param (array{
-   *    domain:string,
-   *    path:string,
-   *    v:string,
-   *    condition:callable|mixed,
-   *    deps:array,
-   *    admin?:boolean
+   *    url:string,
+   *    condition:null|callable|mixed,
+   *    admin:?boolean,
+   *    deps:?array,
+   *    v:?string
    * }) $props */
   public function __construct($props)
   {
     $u = new Utils();
-    $this->name = $u->name($props['path'], $props['domain']);
-    $this->path = $props['path'];
+    $this->url = $props['url'];
+    $this->name = pathinfo($this->url)['filename'];
+
     if (isset($props['admin'])) $this->is_admin = $props['admin'];
-    $this->action = $this->is_admin ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts';
+
+    $this->action = $this->is_admin
+      ? 'admin_enqueue_scripts'
+      : 'wp_enqueue_scripts';
 
     if (isset($props['deps'])) $this->deps = $props['deps'];
-    if (isset($props['v']) && !empty($props['v'])) {
-      $this->v = $props['v'];
-    } else $this->v = $u->rndv();
+
+    if (!empty($props['v'])) $this->v = $props['v'];
+    else $this->v = $u->rndv();
+
     if (isset($props['condition'])) $this->set_condition($props['condition']);
   }
 
-  function set_condition(array $callable)
+  function set_condition(mixed $callable)
   {
     $u = new Utils();
     $callable_name =  $u->get_callable_name($callable);
@@ -62,7 +66,7 @@ class Includable implements Base
       function () {
         $passed = $this->call_condition();
         if (!$passed) return;
-        wp_enqueue_script($this->name, $this->path, $this->deps, $this->v, true);
+        wp_enqueue_script($this->name, $this->url, $this->deps, $this->v, true);
       }
     );
   }
