@@ -17,7 +17,7 @@ class MenuPage implements Base
   /** @param (array{
    *    name:string,
    *    domain:string,
-   *    html: HTMLTemplate
+   *    html: HTMLTemplate,
    *    slug:?string,
    *    hidden:?boolean,
    *    inject:?array<Stylesheet|Script>,
