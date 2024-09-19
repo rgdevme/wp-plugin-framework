@@ -2,8 +2,6 @@
 
 namespace WordpressPluginFramework\Classes;
 
-use DateTime;
-
 class Logger
 {
   public string $path;
@@ -25,7 +23,11 @@ class Logger
     if (!is_dir($this->path)) mkdir($this->path, 0777, true);
     $file_path = $this->path . '/' . $this->filename . '.log';
     $timestamp = date_create()->format('c');
-    $new_log = join(' ', [$level, $timestamp, $message]). PHP_EOL;
+    $new_log = join(' ', [
+      $level,
+      $timestamp,
+      $message
+    ]) . PHP_EOL;
 
     // Write the updated data back to the JSON file
     file_put_contents($file_path, $new_log, FILE_APPEND);
@@ -72,14 +74,18 @@ class Logger
 
   function log(string $message, ?array $data = null)
   {
-    $this->write('INF', $message, $data);
+    $this->write('INFO  ', $message, $data);
+  }
+  function debug(string $message, ?array $data = null)
+  {
+    $this->write('DEBUG ', $message, $data);
   }
   function error(string $message, ?array $data = null)
   {
-    $this->write('ERR', $message, $data);
+    $this->write('ERROR ', $message, $data);
   }
   function warn(string $message, ?array $data = null)
   {
-    $this->write('WRN', $message, $data);
+    $this->write('WARN  ', $message, $data);
   }
 }
