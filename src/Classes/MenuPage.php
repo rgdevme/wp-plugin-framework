@@ -9,18 +9,16 @@ class MenuPage implements Base
 {
   public string $name = '';
   public string $domain = '';
-  public string $filepath = '';
+  public HTMLTemplate $html;
   public string $slug = '';
-  private string $callable = 'default_view_data_callable';
   public bool $hidden = false;
   /** @var array<Stylesheet|Script> */ public array $inject = [];
 
   /** @param (array{
    *    name:string,
    *    domain:string,
-   *    filepath:string,
+   *    html: HTMLTemplate
    *    slug:?string,
-   *    callable:?string,
    *    hidden:?boolean,
    *    inject:?array<Stylesheet|Script>,
    * }) $props */
@@ -28,13 +26,12 @@ class MenuPage implements Base
   {
     $this->name = $props['name'];
     $this->domain = $props['domain'];
-    $this->filepath = $props['filepath'];
+    $this->html = $props['html'];
 
     $slug = $this->domain;
     if (!empty($props['slug'])) $slug .= '-' . $props['slug'];
     $this->slug = strtolower($slug);
 
-    if (isset($props['callable'])) $this->callable = $props['callable'];
     if (isset($props['hidden'])) $this->hidden = $props['hidden'];
     if (isset($props['inject'])) $this->inject = $props['inject'];
   }
@@ -44,7 +41,7 @@ class MenuPage implements Base
     add_action('admin_menu', [$this, 'init_menu'], 20);
 
     if (!key_exists('page', $_GET) || $_GET['page'] !== $this->slug) return;
-    
+
     foreach ($this->inject as $injected) {
       $injected->init();
     }
@@ -71,16 +68,11 @@ class MenuPage implements Base
     echo '<div class="container">';
     echo '<div class="inner">';
 
-    echo $u->include_with_variables($this->filepath, $this->getData());
+    $this->html->init();
 
     echo '</div>';
     echo '</div>';
     echo '</div>';
   }
 
-  function getData()
-  {
-    $func = $this->callable;
-    return $func();
-  }
 }
