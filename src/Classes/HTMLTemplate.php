@@ -2,9 +2,10 @@
 
 namespace WordpressPluginFramework\Classes;
 
+use WordpressPluginFramework\Interfaces\Base;
 use WordpressPluginFramework\Utils;
 
-class HTMLTemplate
+class HTMLTemplate implements Base
 {
   public string $filepath = '';
   private string $variables_callable;
@@ -22,7 +23,7 @@ class HTMLTemplate
     );
   }
 
-  function load()
+  function init()
   {
     $u = new Utils();
     $callable = $this->variables_callable;
