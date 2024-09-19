@@ -13,7 +13,7 @@ class Plugin
   public string $root_file;
 
   public DBTable $db;
-  /** @var MenuPage */ private array $menu_page;
+  /** @var ?MenuPage */ private ?MenuPage $menu_page = null;
   /** @var SubmenuPage[] */ private array $submenu_pages = [];
   /** @var Base[] */ public array $inc = [];
 
