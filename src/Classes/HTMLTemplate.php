@@ -8,17 +8,23 @@ use WordpressPluginFramework\Utils;
 class HTMLTemplate implements Base
 {
   public string $filepath = '';
-  private string $variables_callable;
+  public string $variables_callable;
+
   /** @param (array{
    *    variables_callable:callable|mixed,
    *    filepath:string,
    * }) $props */
   function __construct($props)
   {
-    $u = new Utils();
     $this->filepath = $props['filepath'];
+    $this->set_callable($props['variables_callable']);
+  }
+
+  function set_callable(mixed $callable)
+  {
+    $u = new Utils();
     $this->variables_callable = $u->get_callable_name(
-      isset($props['variables_callable']) ? $props['variables_callable'] : null,
+      isset($callable) ? $callable : null,
       'default_view_data_callable'
     );
   }

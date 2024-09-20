@@ -2,9 +2,14 @@
 
 namespace WordpressPluginFramework\Classes;
 
+use WordpressPluginFramework\Interfaces\Base;
 use WordpressPluginFramework\Utils;
 
-class Action
+/** Registers an action in as many hooks as passed in the parameters.
+ * As different hooks may have different arguments, some distinction 
+ * functionality for the parameters might be needed.
+ */
+class Action implements Base
 {
   /** @var string[] $hook */
   public array $hooks = [];
