@@ -4,10 +4,25 @@ namespace WordpressPluginFramework\Classes;
 
 class Notification
 {
+  public string $domain;
   public string $prefix;
-  public function __construct(string $prefix)
+  public string $transient_id;
+  public HTMLTemplate $html;
+
+  public function __construct(string $prefix, ?HTMLTemplate $html)
   {
     $this->prefix = $prefix;
+    $this->transient_id = $prefix . '_notifications';
+    if (isset($html)) {
+      $this->html = $html;
+    } else {
+      $this->html = new HTMLTemplate([
+        'filepath' => __DIR__ . '/../Templates/DefaultNotification.php',
+      ]);
+    }
+    if (!isset($this->html->variables_callable)) {
+      $this->html->set_callable([$this, 'get']);
+    }
   }
 
   private function notify(string $message, string $level)
@@ -18,7 +33,7 @@ class Notification
       __($message),
       $level
     );
-    set_transient($this->prefix . '_errors', get_settings_errors(), 30);
+    set_transient($this->transient_id, get_settings_errors(), 30);
   }
 
   public function error(string $message)
@@ -38,10 +53,27 @@ class Notification
     $this->notify($message, 'success');
   }
 
-  public function get()
+  public function get_notificactions()
   {
-    $notifications = (array) get_transient("csvu_errors");
-    delete_transient("csvu_errors");
-    return $notifications;
+    /** @var (array{
+     *  message: string,
+     *  code: string,
+     *  setting: string,
+     *  type: string
+     * }[]) */
+    $notification = get_transient($this->transient_id);
+    if ($notification === false) return [];
+    delete_transient($this->transient_id);
+    return $notification;
+  }
+
+  public function get_html_variables()
+  {
+    return ['notifications' => $this->get_notificactions()];
+  }
+
+  function render()
+  {
+    $this->html->init();
   }
 }
