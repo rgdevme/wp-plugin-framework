@@ -2,25 +2,33 @@
 
 namespace WordpressPluginFramework\Classes;
 
-class Ajax
+/** Registers an ajax action in as many hooks as passed in the parameters.
+ * As different hooks may have different arguments, some distinction 
+ * functionality for the parameters might be needed.
+ */
+class Ajax extends Action
 {
-  public string $name;
-  public bool $public = false;
-
   /** 
    * @param (array{
-   *    name:string,
-   *    public?:bool,
+   *    callable:callable|mixed,
+   *    priority:?int,
+   *    accepted_args:?int,
+   *    mode:?'public'|'private'|'both'
    * }) $props */
   function __construct($props)
   {
-    $this->name = $props['name'];
-    if (isset($props['public'])) $this->public = $props['public'];
-  }
-  function init()
-  {
-    $func = $this->name;
-    if ($this->public) add_action('wp_ajax_nopriv_' . $this->name, $func);
-    add_action('wp_ajax_' . $this->name, $func);
+    $mode = 'private';
+    if (isset($props['mode'])) $mode = $props['mode'];
+
+    $new_props = $props;
+    $new_props['hooks'] = [];
+
+    if ($mode === 'private' || $mode=== 'both') {
+      $new_props['hooks'][] = 'wp_ajax_' . $props['callable']; 
+    }
+    if ($mode === 'public' || $mode=== 'both') {
+      $new_props['hooks'][] = 'wp_ajax_nopriv_' . $props['callable']; 
+    }
+    parent::__construct($new_props);
   }
 }
