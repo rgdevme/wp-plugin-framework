@@ -1,6 +1,6 @@
 <?php
 
-namespace WordpressPluginFramework;
+namespace WordpressPluginFramework\Utilities;
 
 use WordpressPluginFramework\Classes\SubmenuPage;
 

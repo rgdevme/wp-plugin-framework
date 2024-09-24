@@ -3,7 +3,7 @@
 namespace WordpressPluginFramework\Classes;
 
 use WordpressPluginFramework\Interfaces\Base;
-use WordpressPluginFramework\Utils;
+use WordpressPluginFramework\Utilities\Utils;
 
 class Includable implements Base
 {

@@ -2,7 +2,7 @@
 
 namespace WordpressPluginFramework\Classes;
 
-use WordpressPluginFramework\Utils;
+use WordpressPluginFramework\Utilities\Utils;
 
 class Action
 {
